@@ -48,6 +48,7 @@ setup(
 		'zope.interface',
 		'zope.mimetype',
 		'zope.security',
+		'nti.externalization',
 		'nti.schema',
 		'nti.zodb',
 		'nti.nose_traceback_info',
