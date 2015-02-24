@@ -57,8 +57,8 @@ setup(
 		'zope.mimetype',
 		'zope.security',
 		'zope.vocabularyregistry',
-		'nti.common',
 		'nti.schema',
+		'nti.zodb',
 		'nti.nose_traceback_info',
 	],
 	extras_require={
