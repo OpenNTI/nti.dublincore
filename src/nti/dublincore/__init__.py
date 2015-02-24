@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Support for metadata descriptive properties,
-similar to, and building on :mod:`zope.dublincore`.
+Support for metadata descriptive properties, similar to,
+and building on :mod:`zope.dublincore`.
 
 .. $Id$
 """

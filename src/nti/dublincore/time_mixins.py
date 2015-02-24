@@ -129,7 +129,8 @@ class ModifiedTimeMixin(object):
 														   as_number=True )
 
 	def __new__( cls, *args, **kwargs ):
-		if issubclass(cls, persistent.Persistent) and not issubclass(cls, PersistentPropertyHolder):
+		if 	issubclass(cls, persistent.Persistent) and \
+			not issubclass(cls, PersistentPropertyHolder):
 			print("ERROR: subclassing Persistent, but not PersistentPropertyHolder", cls)
 		return super(ModifiedTimeMixin,cls).__new__( cls, *args, **kwargs )
 
