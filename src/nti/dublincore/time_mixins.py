@@ -107,15 +107,7 @@ class DCTimesLastModifiedMixin(object):
 	created = TimeProperty('createdTime')
 	modified = TimeProperty('lastModified', write_name='updateLastModIfGreater')
 
-class CreatedTimeMixin(object):
-
-	_SET_CREATED_MODTIME_ON_INIT = True
-	createdTime = 0
-
-	def __init__(self, *args, **kwargs):
-		if self._SET_CREATED_MODTIME_ON_INIT and self.createdTime == 0:
-			self.createdTime = time.time()
-		super(CreatedTimeMixin,self).__init__( *args, **kwargs )
+from nti.dataserver.core.mixins import CreatedTimeMixin
 
 class ModifiedTimeMixin(object):
 	"""
