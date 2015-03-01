@@ -25,9 +25,12 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
 					   default='') # also defined by IDCDescriptiveProperties as required
 
 
-# BWC exports
-from nti.dataserver.core.interfaces import ICreatedTime
-from nti.dataserver.core.interfaces import ILastModified
+import zope.deferredimport
+zope.deferredimport.initialize()
 
-ICreatedTime = ICreatedTime
-ILastModified = ILastModified
+zope.deferredimport.deprecatedFrom(
+	"Moved to nti.dataserver.core.interfaces",
+	"nti.dataserver.core.interfaces",
+	"ICreatedTime",
+	"ILastModified"
+)
