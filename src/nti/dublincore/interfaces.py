@@ -29,8 +29,8 @@ import zope.deferredimport
 zope.deferredimport.initialize()
 
 zope.deferredimport.deprecatedFrom(
-	"Moved to nti.dataserver.core.interfaces",
-	"nti.dataserver.core.interfaces",
+	"Moved to nti.coremetadata.interfaces",
+	"nti.coremetadata.interfaces",
 	"ICreatedTime",
 	"ILastModified"
 )

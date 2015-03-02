@@ -23,7 +23,7 @@ from zope.dublincore.interfaces import IDCTimes
 
 import persistent
 
-from nti.dataserver.core.interfaces import ILastModified
+from nti.coremetadata.interfaces import ILastModified
 
 from nti.zodb import minmax
 from nti.zodb.persistentproperty import PersistentPropertyHolder
