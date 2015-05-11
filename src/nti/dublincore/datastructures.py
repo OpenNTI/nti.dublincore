@@ -17,8 +17,8 @@ from nti.zodb.persistentproperty import PersistentPropertyHolder
 from .time_mixins import CreatedAndModifiedTimeMixin
 
 class CreatedModDateTrackingObject(CreatedAndModifiedTimeMixin):
-	""" 
-	Adds the `creator` and `createdTime` attributes. 
+	"""
+	Adds the `creator` and `createdTime` attributes.
 	"""
 
 	def __init__( self, *args, **kwargs ):
@@ -35,7 +35,7 @@ class CreatedModDateTrackingObject(CreatedAndModifiedTimeMixin):
 
 class PersistentCreatedModDateTrackingObject(CreatedModDateTrackingObject,
 											 PersistentPropertyHolder):
-	# order of inheritance matters; if Persistent is first, 
+	# order of inheritance matters; if Persistent is first,
 	# we can't have our own __setstate__; # only subclasses can
 	pass
 

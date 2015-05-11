@@ -37,7 +37,7 @@ class TimeProperty(object):
 				 writable=True,
 				 write_name=None,
 				 cached=False):
-		self._name = name
+		self._name = intern(str(name))
 		self._writable = writable
 		self._write_name = write_name
 		if cached:
@@ -134,9 +134,9 @@ class ModifiedTimeMixin(object):
 			'_lastModified' in data and isinstance(data['_lastModified'], numbers.Number):
 			# Are there actually any objects still around that have this condition?
 			# A migration to find them is probably difficult
-			data['_lastModified'] = minmax.NumericMaximum(data['_lastModified'])
+			data[str('_lastModified')] = minmax.NumericMaximum(data['_lastModified'])
 		elif isinstance(data, (float, int)):  # Not sure why we get float here
-			data = {'_lastModified':minmax.NumericMaximum('data')}
+			data = {str('_lastModified'):minmax.NumericMaximum('data')}
 
 		# We may or may not be the base of the inheritance tree; usually we are not,
 		# but occasionally (mostly in tests) we are
