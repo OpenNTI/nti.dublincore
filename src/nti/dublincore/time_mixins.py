@@ -107,6 +107,8 @@ class DCTimesLastModifiedMixin(object):
 	modified = TimeProperty('lastModified', write_name='updateLastModIfGreater')
 
 from nti.coremetadata.mixins import CreatedTimeMixin
+CreatedTimeMixin = CreatedTimeMixin # pylint and rexport
+
 from nti.coremetadata.mixins import ModifiedTimeMixin as CoreModifiedTimeMixin
 from nti.coremetadata.mixins import CreatedAndModifiedTimeMixin as CoreCreatedAndModifiedTimeMixin
 
