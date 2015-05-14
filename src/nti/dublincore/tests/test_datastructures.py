@@ -23,68 +23,68 @@ from nti.dublincore.tests import SharedConfiguringTestLayer
 
 class TestPersistentExternalizableWeakList(unittest.TestCase):
 
-    layer = SharedConfiguringTestLayer
-    
-    def test_plus_extend( self ):
-        class C( persistent.Persistent ): pass
-        c1 = C()
-        c2 = C()
-        c3 = C()
-        l = PersistentExternalizableWeakList()
-        l += [c1, c2, c3]
-        assert_that( l, is_( [c1, c2, c3] ) )
-        assert_that( [c1, c2, c3], is_(l) )
+	layer = SharedConfiguringTestLayer
 
-        # Adding things that are already weak refs.
-        l += l
-        assert_that( l, is_( [c1, c2, c3, c1, c2, c3] ) )
+	def test_plus_extend(self):
+		class C(persistent.Persistent): pass
+		c1 = C()
+		c2 = C()
+		c3 = C()
+		l = PersistentExternalizableWeakList()
+		l += [c1, c2, c3]
+		assert_that(l, is_([c1, c2, c3]))
+		assert_that([c1, c2, c3], is_(l))
 
-        l = PersistentExternalizableWeakList()
-        l.extend( [c1, c2, c3] )
-        assert_that( l, is_( [c1, c2, c3] ) )
-        assert_that( l, is_(l) )
-        
-    def test_mutate(self):
+		# Adding things that are already weak refs.
+		l += l
+		assert_that(l, is_([c1, c2, c3, c1, c2, c3]))
 
-        obj = PersistentExternalizableWeakList()
+		l = PersistentExternalizableWeakList()
+		l.extend([c1, c2, c3])
+		assert_that(l, is_([c1, c2, c3]))
+		assert_that(l, is_(l))
 
-        # Cannot set non-persistent objects
-        assert_that( calling( obj.append ).with_args(object()),
-                     raises(AttributeError) )
+	def test_mutate(self):
 
-        pers = persistent.Persistent()
-        obj.append( pers )
-        assert_that( obj[0], is_( pers ) )
+		obj = PersistentExternalizableWeakList()
 
-        pers2 = persistent.Persistent()
-        obj[0] = pers2
-        assert_that( obj[0], is_( pers2 ) )
-        assert_that( obj.count( pers2 ), is_( 1 ) )
-        assert_that( obj.count( pers ), is_( 0 ) )
+		# Cannot set non-persistent objects
+		assert_that(calling(obj.append).with_args(object()),
+					 raises(AttributeError))
 
-        # iteration
-        for x in obj:
-            assert_that( x, is_( pers2 ) )
-        assert_that( obj.index( pers2 ), is_( 0 ) )
+		pers = persistent.Persistent()
+		obj.append(pers)
+		assert_that(obj[0], is_(pers))
 
-        assert_that( obj.pop(), is_( pers2 ) )
-        assert_that( calling(obj.pop), raises(IndexError) )
+		pers2 = persistent.Persistent()
+		obj[0] = pers2
+		assert_that(obj[0], is_(pers2))
+		assert_that(obj.count(pers2), is_(1))
+		assert_that(obj.count(pers), is_(0))
 
-        assert_that( obj, is_( obj ) )
+		# iteration
+		for x in obj:
+			assert_that(x, is_(pers2))
+		assert_that(obj.index(pers2), is_(0))
 
-        obj.append( pers2 )
-        # mul
-        assert_that( obj * 2, is_( PersistentExternalizableWeakList( [pers2, pers2] ) ) )
+		assert_that(obj.pop(), is_(pers2))
+		assert_that(calling(obj.pop), raises(IndexError))
 
-        # imul
-        obj *= 2
-        assert_that( obj, is_( PersistentExternalizableWeakList( [pers2, pers2] ) ) )
+		assert_that(obj, is_(obj))
 
-        obj.pop()
-        # insert
-        obj.insert( 1, pers2 )
-        assert_that( obj, is_( PersistentExternalizableWeakList( [pers2, pers2] ) ) )
+		obj.append(pers2)
+		# mul
+		assert_that(obj * 2, is_(PersistentExternalizableWeakList([pers2, pers2])))
 
-        assert_that( obj, is_( [pers2, pers2] ) )
-        assert_that( obj, is_not( [pers2, pers] ) )
-        assert_that( obj, is_not( pers ) )
+		# imul
+		obj *= 2
+		assert_that(obj, is_(PersistentExternalizableWeakList([pers2, pers2])))
+
+		obj.pop()
+		# insert
+		obj.insert(1, pers2)
+		assert_that(obj, is_(PersistentExternalizableWeakList([pers2, pers2])))
+
+		assert_that(obj, is_([pers2, pers2]))
+		assert_that(obj, is_not([pers2, pers]))
+		assert_that(obj, is_not(pers))

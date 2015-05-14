@@ -22,7 +22,7 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
 					 default='')  # also defined by IDCDescriptiveProperties as required
 
 	description = Text(title="The human-readable description",
-					   default='') # also defined by IDCDescriptiveProperties as required
+					   default='')  # also defined by IDCDescriptiveProperties as required
 
 
 import zope.deferredimport

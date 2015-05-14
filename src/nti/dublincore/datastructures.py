@@ -21,8 +21,8 @@ class CreatedModDateTrackingObject(CreatedAndModifiedTimeMixin):
 	Adds the `creator` and `createdTime` attributes.
 	"""
 
-	def __init__( self, *args, **kwargs ):
-		super(CreatedModDateTrackingObject,self).__init__( *args, **kwargs )
+	def __init__(self, *args, **kwargs):
+		super(CreatedModDateTrackingObject, self).__init__(*args, **kwargs)
 		# Some of our subclasses have class attributes for fixed creators.
 		# don't override those unless we have to
 		if not hasattr(self, 'creator'):
@@ -52,12 +52,12 @@ class PersistentExternalizableWeakList(_PersistentExternalizableWeakList,
 	Any weak references added to the list will be treated the same.
 	"""
 
-	def remove(self,value):
-		super(PersistentExternalizableWeakList,self).remove( value )
+	def remove(self, value):
+		super(PersistentExternalizableWeakList, self).remove(value)
 		self.updateLastMod()
 
 	def __setitem__(self, i, item):
-		super(PersistentExternalizableWeakList,self).__setitem__( i, item )
+		super(PersistentExternalizableWeakList, self).__setitem__(i, item)
 		self.updateLastMod()
 
 	def __iadd__(self, other):
@@ -65,24 +65,24 @@ class PersistentExternalizableWeakList(_PersistentExternalizableWeakList,
 		# Note that the builtin list only accepts other lists,
 		# but the UserList from which we are descended accepts
 		# any iterable.
-		result = super(PersistentExternalizableWeakList,self).__iadd__(other)
+		result = super(PersistentExternalizableWeakList, self).__iadd__(other)
 		self.updateLastMod()
 		return result
 
 	def __imul__(self, n):
-		result = super(PersistentExternalizableWeakList,self).__imul__(n)
+		result = super(PersistentExternalizableWeakList, self).__imul__(n)
 		self.updateLastMod()
 		return result
 
 	def append(self, item):
-		super(PersistentExternalizableWeakList,self).append(item)
+		super(PersistentExternalizableWeakList, self).append(item)
 		self.updateLastMod()
 
 	def insert(self, i, item):
-		super(PersistentExternalizableWeakList,self).insert( i, item )
+		super(PersistentExternalizableWeakList, self).insert(i, item)
 		self.updateLastMod()
 
 	def pop(self, i=-1):
-		rtn = super(PersistentExternalizableWeakList,self).pop( i )
+		rtn = super(PersistentExternalizableWeakList, self).pop(i)
 		self.updateLastMod()
 		return rtn

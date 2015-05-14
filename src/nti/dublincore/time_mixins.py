@@ -11,7 +11,6 @@ __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
 
-import time
 import numbers
 import collections
 from datetime import datetime as _datetime
@@ -107,9 +106,11 @@ class DCTimesLastModifiedMixin(object):
 	created = TimeProperty('createdTime')
 	modified = TimeProperty('lastModified', write_name='updateLastModIfGreater')
 
-from nti.dataserver.core.mixins import CreatedTimeMixin
+from nti.coremetadata.mixins import CreatedTimeMixin
+from nti.coremetadata.mixins import ModifiedTimeMixin as CoreModifiedTimeMixin
+from nti.coremetadata.mixins import CreatedAndModifiedTimeMixin as CoreCreatedAndModifiedTimeMixin
 
-class ModifiedTimeMixin(object):
+class ModifiedTimeMixin(CoreModifiedTimeMixin):
 	"""
 	Maintains an lastModified attribute containing a time.time()
 	modification stamp. Use updateLastMod() to update this value.
@@ -125,9 +126,6 @@ class ModifiedTimeMixin(object):
 			not issubclass(cls, PersistentPropertyHolder):
 			print("ERROR: subclassing Persistent, but not PersistentPropertyHolder", cls)
 		return super(ModifiedTimeMixin,cls).__new__( cls, *args, **kwargs )
-
-	def __init__( self, *args, **kwargs ):
-		super(ModifiedTimeMixin,self).__init__( *args, **kwargs )
 
 	def __setstate__(self, data):
 		if 	isinstance(data, collections.Mapping) and \
@@ -146,28 +144,11 @@ class ModifiedTimeMixin(object):
 			self.__dict__.clear()
 			self.__dict__.update(data)
 
-	def updateLastMod(self, t=None ):
-		self.lastModified = ( t if t is not None and t > self.lastModified else time.time() )
-		return self.lastModified
-
-	def updateLastModIfGreater( self, t ):
-		"Only if the given time is (not None and) greater than this object's is this object's time changed."
-		if t is not None and t > self.lastModified:
-			self.lastModified = t
-		return self.lastModified
-
 @interface.implementer(ILastModified)
-class CreatedAndModifiedTimeMixin(CreatedTimeMixin,
+class CreatedAndModifiedTimeMixin(CoreCreatedAndModifiedTimeMixin,
 								  ModifiedTimeMixin,
 								  DCTimesLastModifiedMixin):
-
-	def __init__(self, *args, **kwargs):
-		# We set the times now so subclasses can rely on them
-		if self._SET_CREATED_MODTIME_ON_INIT:
-			self.createdTime = time.time()
-			self.updateLastModIfGreater(self.createdTime)
-		super(CreatedAndModifiedTimeMixin,self).__init__(*args, **kwargs)
-
+	pass
 
 class PersistentCreatedAndModifiedTimeObject(CreatedAndModifiedTimeMixin,
 											 PersistentPropertyHolder):

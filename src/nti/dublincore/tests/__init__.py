@@ -37,7 +37,7 @@ class SharedConfiguringTestLayer(ZopeComponentLayer,
 	@classmethod
 	def testSetUp(cls, test=None):
 		setHooks()
-		
+
 	@classmethod
 	def testTearDown(cls):
 		pass
