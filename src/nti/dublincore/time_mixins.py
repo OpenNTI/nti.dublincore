@@ -106,8 +106,11 @@ class DCTimesLastModifiedMixin(object):
 	created = TimeProperty('createdTime')
 	modified = TimeProperty('lastModified', write_name='updateLastModIfGreater')
 
-from nti.coremetadata.mixins import CreatedTimeMixin
-CreatedTimeMixin = CreatedTimeMixin # pylint and rexport
+import zope.deferredimport
+zope.deferredimport.initialize()
+zope.deferredimport.deprecated(
+	"Import from nti.coremetadata.mixins instead",
+	CreatedTimeMixin='nti.coremetadata.mixins:CreatedTimeMixin')
 
 from nti.coremetadata.mixins import ModifiedTimeMixin as CoreModifiedTimeMixin
 from nti.coremetadata.mixins import CreatedAndModifiedTimeMixin as CoreCreatedAndModifiedTimeMixin
