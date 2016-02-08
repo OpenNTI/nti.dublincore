@@ -9,12 +9,12 @@ __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
 
+from nti.dublincore.time_mixins import CreatedAndModifiedTimeMixin
+
 from nti.externalization.persistence import PersistentExternalizableList as _PersistentExternalizableList
 from nti.externalization.persistence import PersistentExternalizableWeakList as _PersistentExternalizableWeakList
 
 from nti.zodb.persistentproperty import PersistentPropertyHolder
-
-from .time_mixins import CreatedAndModifiedTimeMixin
 
 class CreatedModDateTrackingObject(CreatedAndModifiedTimeMixin):
 	"""

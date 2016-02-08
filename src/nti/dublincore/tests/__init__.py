@@ -7,8 +7,6 @@ __docformat__ = "restructuredtext en"
 # disable: accessing protected members, too many methods
 # pylint: disable=W0212,R0904
 
-import uuid
-
 from zope.component.hooks import setHooks
 
 from nti.testing.layers import find_test

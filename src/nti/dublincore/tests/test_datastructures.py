@@ -26,7 +26,8 @@ class TestPersistentExternalizableWeakList(unittest.TestCase):
 	layer = SharedConfiguringTestLayer
 
 	def test_plus_extend(self):
-		class C(persistent.Persistent): pass
+		class C(persistent.Persistent):
+			pass
 		c1 = C()
 		c2 = C()
 		c3 = C()
@@ -50,7 +51,7 @@ class TestPersistentExternalizableWeakList(unittest.TestCase):
 
 		# Cannot set non-persistent objects
 		assert_that(calling(obj.append).with_args(object()),
-					 raises(AttributeError))
+					raises(AttributeError))
 
 		pers = persistent.Persistent()
 		obj.append(pers)
