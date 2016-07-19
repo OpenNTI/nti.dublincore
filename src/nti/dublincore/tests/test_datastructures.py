@@ -11,7 +11,10 @@ from hamcrest import is_
 from hamcrest import is_not
 from hamcrest import raises
 from hamcrest import calling
+from hamcrest import has_key
 from hamcrest import assert_that
+from hamcrest import has_property
+does_not = is_not
 
 import unittest
 
@@ -19,11 +22,36 @@ import persistent
 
 from nti.dublincore.datastructures import PersistentExternalizableWeakList
 
+from nti.dublincore.time_mixins import ModifiedTimeMixin as ModDateTrackingObject
+
 from nti.dublincore.tests import SharedConfiguringTestLayer
 
 class TestPersistentExternalizableWeakList(unittest.TestCase):
 
 	layer = SharedConfiguringTestLayer
+
+	def test_moddatetrackingobject_oldstates(self):
+		mto = ModDateTrackingObject()
+		assert_that(mto.lastModified, is_(0))
+		assert_that(mto.__dict__, does_not(has_key('_lastModified')))
+
+		# old state
+		mto.__setstate__({'_lastModified': 32 })
+		assert_that(mto.lastModified, is_(32))
+
+		# updates dynamically
+		mto.updateLastMod(42)
+		assert_that(mto.lastModified, is_(42))
+		assert_that(mto._lastModified, has_property('value', 42))
+
+		# missing entirely
+		del mto._lastModified
+		assert_that(mto.lastModified, is_(0))
+		mto.updateLastMod(42)
+		assert_that(mto.lastModified, is_(42))
+		assert_that(mto._lastModified, has_property('value', 42))
+
+		mto._lastModified.__getstate__()
 
 	def test_plus_extend(self):
 		class C(persistent.Persistent):
