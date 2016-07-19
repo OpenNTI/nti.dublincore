@@ -148,6 +148,7 @@ class ModifiedTimeMixin(CoreModifiedTimeMixin):
 		except AttributeError:
 			self.__dict__.clear()
 			self.__dict__.update(data)
+ModDateTrackingObject = ModifiedTimeMixin # BWC
 
 @interface.implementer(ILastModified)
 class CreatedAndModifiedTimeMixin(CoreCreatedAndModifiedTimeMixin,
