@@ -8,4 +8,10 @@
 	<include package="zope.component" />
 	<include package="zope.security" />
 
+	<configure zcml:condition="installed nti.coremetadata">
+		<class class="nti.dublincore.time_mixins.CreatedAndModifiedTimeMixin">
+			<implements interface="nti.coremetadata.interfaces.ILastModified" />
+		</class>
+	</configure>
+
 </configure>

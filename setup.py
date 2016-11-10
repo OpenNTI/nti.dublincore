@@ -50,7 +50,6 @@ setup(
 		'zope.interface',
 		'zope.mimetype',
 		'zope.security',
-		'nti.coremetadata',
 		'nti.externalization',
 		'nti.schema',
 		'nti.zodb'

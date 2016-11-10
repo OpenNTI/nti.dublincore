@@ -22,8 +22,6 @@ from zope.dublincore.interfaces import IDCTimes
 
 from persistent import Persistent
 
-from nti.coremetadata.interfaces import ILastModified
-
 from nti.zodb import minmax
 from nti.zodb.persistentproperty import PersistentPropertyHolder
 
@@ -150,7 +148,6 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
 			self.__dict__.update(data)
 ModDateTrackingObject = ModifiedTimeMixin # BWC
 
-@interface.implementer(ILastModified)
 class CreatedAndModifiedTimeMixin(_CreatedAndModifiedTimeMixin,
 								  ModifiedTimeMixin,
 								  DCTimesLastModifiedMixin):
