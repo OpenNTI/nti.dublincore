@@ -109,13 +109,13 @@ class DCTimesLastModifiedMixin(object):
 import zope.deferredimport
 zope.deferredimport.initialize()
 zope.deferredimport.deprecated(
-	"Import from nti.coremetadata.mixins instead",
-	CreatedTimeMixin='nti.coremetadata.mixins:CreatedTimeMixin')
+	"Import from nti.dublincore.mixins instead",
+	CreatedTimeMixin='nti.dublincore.mixins:CreatedTimeMixin')
 
-from nti.coremetadata.mixins import ModifiedTimeMixin as CoreModifiedTimeMixin
-from nti.coremetadata.mixins import CreatedAndModifiedTimeMixin as CoreCreatedAndModifiedTimeMixin
+from nti.dublincore.mixins import ModifiedTimeMixin as _ModifiedTimeMixin
+from nti.dublincore.mixins import CreatedAndModifiedTimeMixin as _CreatedAndModifiedTimeMixin
 
-class ModifiedTimeMixin(CoreModifiedTimeMixin):
+class ModifiedTimeMixin(_ModifiedTimeMixin):
 	"""
 	Maintains an lastModified attribute containing a time.time()
 	modification stamp. Use updateLastMod() to update this value.
@@ -151,7 +151,7 @@ class ModifiedTimeMixin(CoreModifiedTimeMixin):
 ModDateTrackingObject = ModifiedTimeMixin # BWC
 
 @interface.implementer(ILastModified)
-class CreatedAndModifiedTimeMixin(CoreCreatedAndModifiedTimeMixin,
+class CreatedAndModifiedTimeMixin(_CreatedAndModifiedTimeMixin,
 								  ModifiedTimeMixin,
 								  DCTimesLastModifiedMixin):
 	pass
