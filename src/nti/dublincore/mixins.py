@@ -9,15 +9,5 @@ __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
 
-try:
-    from nti.coremetadata.mixins import CreatedTimeMixin
-    from nti.coremetadata.mixins import ModifiedTimeMixin
-    from nti.coremetadata.mixins import CreatedAndModifiedTimeMixin
-except ImportError:
-    from nti.dublincore._mixins import CreatedTimeMixin
-    from nti.dublincore._mixins import ModifiedTimeMixin
-    from nti.dublincore._mixins import CreatedAndModifiedTimeMixin
-
-CreatedTimeMixin = CreatedTimeMixin
-ModifiedTimeMixin = ModifiedTimeMixin
-CreatedAndModifiedTimeMixin = CreatedAndModifiedTimeMixin
+import zope.deprecation
+zope.deprecation.moved('nti.base.mixins')

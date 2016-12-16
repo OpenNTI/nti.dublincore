@@ -26,10 +26,9 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
 
 import zope.deferredimport
 zope.deferredimport.initialize()
-
 zope.deferredimport.deprecatedFrom(
-	"Moved to nti.coremetadata.interfaces",
-	"nti.coremetadata.interfaces",
+	"Moved to nti.base.interfaces",
+	"nti.base.interfaces",
 	"ICreatedTime",
 	"ILastModified"
 )

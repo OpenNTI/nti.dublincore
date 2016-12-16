@@ -50,6 +50,7 @@ setup(
 		'persistent',
 		'zope.component',
 		'zope.deferredimport',
+		'zope.deprecation',
 		'zope.dublincore',
 		'zope.interface',
 		'zope.mimetype',

@@ -107,11 +107,11 @@ class DCTimesLastModifiedMixin(object):
 import zope.deferredimport
 zope.deferredimport.initialize()
 zope.deferredimport.deprecated(
-	"Import from nti.dublincore.mixins instead",
-	CreatedTimeMixin='nti.dublincore.mixins:CreatedTimeMixin')
+	"Import from nti.base.mixins instead",
+	CreatedTimeMixin='nti.base.mixins:CreatedTimeMixin')
 
-from nti.dublincore.mixins import ModifiedTimeMixin as _ModifiedTimeMixin
-from nti.dublincore.mixins import CreatedAndModifiedTimeMixin as _CreatedAndModifiedTimeMixin
+from nti.base.mixins import ModifiedTimeMixin as _ModifiedTimeMixin
+from nti.base.mixins import CreatedAndModifiedTimeMixin as _CreatedAndModifiedTimeMixin
 
 class ModifiedTimeMixin(_ModifiedTimeMixin):
 	"""
