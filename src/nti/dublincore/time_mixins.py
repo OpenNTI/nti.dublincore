@@ -31,65 +31,72 @@ from nti.zodb.persistentproperty import PersistentPropertyHolder
 import zope.deferredimport
 zope.deferredimport.initialize()
 zope.deferredimport.deprecated(
-	"Import from nti.base.mixins instead",
-	CreatedTimeMixin='nti.base.mixins:CreatedTimeMixin')
+    "Import from nti.base.mixins instead",
+    CreatedTimeMixin='nti.base.mixins:CreatedTimeMixin')
+
 
 @interface.implementer(IDCTimes)
 class DCTimesLastModifiedMixin(object):
-	"""
-	A mixin that implements dublincore times using the timestamp
-	information from ILastModified. Requires no storage,
-	can be added to persistent objects at any time.
+    """
+    A mixin that implements dublincore times using the timestamp
+    information from ILastModified. Requires no storage,
+    can be added to persistent objects at any time.
 
-	These datetimes are always naive datetime objects, normalized
-	to UTC.
-	"""
+    These datetimes are always naive datetime objects, normalized
+    to UTC.
+    """
 
-	created = TimeProperty('createdTime')
-	modified = TimeProperty('lastModified', write_name='updateLastModIfGreater')
+    created = TimeProperty('createdTime')
+    modified = TimeProperty('lastModified',
+						    write_name='updateLastModIfGreater')
+
+__LM__ = '_lastModified'
 
 class ModifiedTimeMixin(_ModifiedTimeMixin):
-	"""
-	Maintains an lastModified attribute containing a time.time()
-	modification stamp. Use updateLastMod() to update this value.
-	Typically subclasses of this class should be :class:`nti.zodb.persistentproperty.PersistentPropertyHolder`
-	"""
+    """
+    Maintains an lastModified attribute containing a time.time()
+    modification stamp. Use updateLastMod() to update this value.
+    Typically subclasses of this class should be :class:`nti.zodb.persistentproperty.PersistentPropertyHolder`
+    """
 
-	lastModified = minmax.NumericPropertyDefaultingToZero( str('_lastModified'),
-														   minmax.NumericMaximum,
-														   as_number=True )
+    lastModified = minmax.NumericPropertyDefaultingToZero(str(__LM__),
+                                                          minmax.NumericMaximum,
+                                                          as_number=True)
 
-	def __new__( cls, *args, **kwargs ):
-		if 		issubclass(cls, Persistent) \
-			and not issubclass(cls, PersistentPropertyHolder):
-			print("ERROR: subclassing Persistent, but not PersistentPropertyHolder", cls)
-		return super(ModifiedTimeMixin,cls).__new__( cls, *args, **kwargs )
+    def __new__(cls, *args, **kwargs):
+        if 		issubclass(cls, Persistent) \
+            and not issubclass(cls, PersistentPropertyHolder):
+            print("ERROR: subclassing Persistent, but not PersistentPropertyHolder", cls)
+        return super(ModifiedTimeMixin, cls).__new__(cls, *args, **kwargs)
 
-	def __setstate__(self, data):
-		if 	isinstance(data, collections.Mapping) and \
-			'_lastModified' in data and isinstance(data['_lastModified'], numbers.Number):
-			# Are there actually any objects still around that have this condition?
-			# A migration to find them is probably difficult
-			data[str('_lastModified')] = minmax.NumericMaximum(data['_lastModified'])
-		elif isinstance(data, (float, int)):  # Not sure why we get float here
-			data = {str('_lastModified'):minmax.NumericMaximum('data')}
+    def __setstate__(self, data):
+        if 	    isinstance(data, collections.Mapping) \
+            and __LM__ in data \
+            and isinstance(data[__LM__], numbers.Number):
+            # Are there actually any objects still around that have this condition?
+            # A migration to find them is probably difficult
+            data[str(__LM__)] = minmax.NumericMaximum(data[__LM__])
+        elif isinstance(data, (float, int)):  # Not sure why we get float here
+            data = {str(__LM__): minmax.NumericMaximum('data')}
 
-		# We may or may not be the base of the inheritance tree; usually we are not,
-		# but occasionally (mostly in tests) we are
-		try:
-			super(ModifiedTimeMixin, self).__setstate__(data)
-		except AttributeError:
-			self.__dict__.clear()
-			self.__dict__.update(data)
-ModDateTrackingObject = ModifiedTimeMixin # BWC
+        # We may or may not be the base of the inheritance tree; usually we are not,
+        # but occasionally (mostly in tests) we are
+        try:
+            super(ModifiedTimeMixin, self).__setstate__(data)
+        except AttributeError:
+            self.__dict__.clear()
+            self.__dict__.update(data)
+ModDateTrackingObject = ModifiedTimeMixin  # BWC
+
 
 class CreatedAndModifiedTimeMixin(_CreatedAndModifiedTimeMixin,
-								  ModifiedTimeMixin,
-								  DCTimesLastModifiedMixin):
-	pass
+                                  ModifiedTimeMixin,
+                                  DCTimesLastModifiedMixin):
+    pass
+
 
 class PersistentCreatedAndModifiedTimeObject(CreatedAndModifiedTimeMixin,
-											 PersistentPropertyHolder):
-	# order of inheritance matters; if Persistent is first, we can't have our own __setstate__;
-	# only subclasses can
-	pass
+                                             PersistentPropertyHolder):
+    # order of inheritance matters; if Persistent is first, we can't have our own __setstate__;
+    # only subclasses can
+    pass
