@@ -48,7 +48,7 @@ class DCTimesLastModifiedMixin(object):
 
     created = TimeProperty('createdTime')
     modified = TimeProperty('lastModified',
-						    write_name='updateLastModIfGreater')
+                            write_name='updateLastModIfGreater')
 
 __LM__ = '_lastModified'
 
@@ -64,13 +64,13 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
                                                           as_number=True)
 
     def __new__(cls, *args, **kwargs):
-        if 		issubclass(cls, Persistent) \
+        if      issubclass(cls, Persistent) \
             and not issubclass(cls, PersistentPropertyHolder):
             print("ERROR: subclassing Persistent, but not PersistentPropertyHolder", cls)
         return super(ModifiedTimeMixin, cls).__new__(cls, *args, **kwargs)
 
     def __setstate__(self, data):
-        if 	    isinstance(data, collections.Mapping) \
+        if      isinstance(data, collections.Mapping) \
             and __LM__ in data \
             and isinstance(data[__LM__], numbers.Number):
             # Are there actually any objects still around that have this condition?
