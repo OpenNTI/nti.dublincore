@@ -25,6 +25,7 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
     description = Text(title="The human-readable description",
                        default='')  # also defined by IDCDescriptiveProperties as required
 
+
 import zope.deferredimport
 zope.deferredimport.initialize()
 zope.deferredimport.deprecatedFrom(

@@ -50,6 +50,8 @@ class DCTimesLastModifiedMixin(object):
     modified = TimeProperty('lastModified',
                             write_name='updateLastModIfGreater')
 
+
+
 __LM__ = '_lastModified'
 
 class ModifiedTimeMixin(_ModifiedTimeMixin):
