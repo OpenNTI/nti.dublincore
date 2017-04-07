@@ -47,6 +47,10 @@ setup(
     tests_require=TESTS_REQUIRE,
     install_requires=[
         'setuptools',
+        'nti.base',
+        'nti.externalization',
+        'nti.schema',
+        'nti.zodb',
         'persistent',
         'zope.component',
         'zope.deferredimport',
@@ -55,10 +59,6 @@ setup(
         'zope.interface',
         'zope.mimetype',
         'zope.security',
-        'nti.base',
-        'nti.externalization',
-        'nti.schema',
-        'nti.zodb'
     ],
     extras_require={
         'test': TESTS_REQUIRE,
