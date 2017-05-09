@@ -4,7 +4,7 @@
 .. $Id$
 """
 
-from __future__ import print_function, unicode_literals, absolute_import, division
+from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
@@ -41,10 +41,11 @@ class PersistentCreatedModDateTrackingObject(CreatedModDateTrackingObject,
     # we can't have our own __setstate__; # only subclasses can
     pass
 
+
 # For BWC, we apply these properties to the base class too,
 # but the implementation is not correct as they do not get updated...
 _PersistentExternalizableList.__bases__ = (PersistentCreatedModDateTrackingObject,) + \
-                                          _PersistentExternalizableList.__bases__
+                                           _PersistentExternalizableList.__bases__
 
 
 class PersistentExternalizableWeakList(_PersistentExternalizableWeakList,

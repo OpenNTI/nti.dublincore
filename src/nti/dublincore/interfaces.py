@@ -6,7 +6,7 @@ Interfaces and support for metadata properties.
 .. $Id$
 """
 
-from __future__ import print_function, unicode_literals, absolute_import, division
+from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
 from zope.dublincore.interfaces import IDCDescriptiveProperties
@@ -19,11 +19,11 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
     """
     Makes title and description optional.
     """
-    title = TextLine(title="The human-readable section name of this item; alias for `__name__`",
-                     default='')  # also defined by IDCDescriptiveProperties as required
+    title = TextLine(title=u"The human-readable section name of this item; alias for `__name__`",
+                     default=u'')  # also defined by IDCDescriptiveProperties as required
 
-    description = Text(title="The human-readable description",
-                       default='')  # also defined by IDCDescriptiveProperties as required
+    description = Text(title=u"The human-readable description",
+                       default=u'')  # also defined by IDCDescriptiveProperties as required
 
 
 import zope.deferredimport

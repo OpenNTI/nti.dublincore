@@ -6,7 +6,7 @@ Base-class and mixin implementations.
 .. $Id$
 """
 
-from __future__ import print_function, unicode_literals, absolute_import, division
+from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
@@ -26,6 +26,7 @@ from nti.base.mixins import CreatedAndModifiedTimeMixin as _CreatedAndModifiedTi
 from nti.dublincore.property import TimeProperty
 
 from nti.zodb import minmax
+
 from nti.zodb.persistentproperty import PersistentPropertyHolder
 
 import zope.deferredimport
@@ -51,8 +52,8 @@ class DCTimesLastModifiedMixin(object):
                             write_name='updateLastModIfGreater')
 
 
-
 __LM__ = '_lastModified'
+
 
 class ModifiedTimeMixin(_ModifiedTimeMixin):
     """
@@ -88,6 +89,8 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
         except AttributeError:
             self.__dict__.clear()
             self.__dict__.update(data)
+
+
 ModDateTrackingObject = ModifiedTimeMixin  # BWC
 
 
