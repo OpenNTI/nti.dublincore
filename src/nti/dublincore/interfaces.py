@@ -9,6 +9,8 @@ Interfaces and support for metadata properties.
 from __future__ import print_function, absolute_import, division
 __docformat__ = "restructuredtext en"
 
+logger = __import__('logging').getLogger(__name__)
+
 from zope.dublincore.interfaces import IDCDescriptiveProperties
 
 from nti.schema.field import ValidText as Text

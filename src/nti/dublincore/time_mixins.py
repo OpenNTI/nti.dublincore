@@ -59,7 +59,8 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
     """
     Maintains an lastModified attribute containing a time.time()
     modification stamp. Use updateLastMod() to update this value.
-    Typically subclasses of this class should be :class:`nti.zodb.persistentproperty.PersistentPropertyHolder`
+    Typically subclasses of this class should be 
+    :class:`nti.zodb.persistentproperty.PersistentPropertyHolder`
     """
 
     lastModified = minmax.NumericPropertyDefaultingToZero(str(__LM__),
