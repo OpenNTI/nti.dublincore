@@ -52,6 +52,7 @@ class DCTimesLastModifiedMixin(object):
                             write_name='updateLastModIfGreater')
 
 
+#: last modified property in mixin
 __LM__ = '_lastModified'
 
 
@@ -79,10 +80,9 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
             and isinstance(data[__LM__], numbers.Number):
             # Are there actually any objects still around that have this condition?
             # A migration to find them is probably difficult
-            data[str(__LM__)] = minmax.NumericMaximum(data[__LM__])
+            data[__LM__] = minmax.NumericMaximum(data[__LM__])
         elif isinstance(data, (float, int)):  # Not sure why we get float here
-            data = {str(__LM__): minmax.NumericMaximum('data')}
-
+            data = {__LM__: minmax.NumericMaximum('data')}
         # We may or may not be the base of the inheritance tree; usually we are not,
         # but occasionally (mostly in tests) we are
         try:
@@ -90,8 +90,6 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
         except AttributeError:
             self.__dict__.clear()
             self.__dict__.update(data)
-
-
 ModDateTrackingObject = ModifiedTimeMixin  # BWC
 
 
