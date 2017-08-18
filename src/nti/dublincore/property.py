@@ -28,7 +28,7 @@ class TimeProperty(object):
         if cached:
             self._cached = str('_v_time_property_' + name)
 
-    def __get__(self, inst, klass):
+    def __get__(self, inst, unused_klass):
         if inst is None:
             return self
 
