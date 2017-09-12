@@ -1,48 +1,46 @@
 import codecs
 from setuptools import setup, find_packages
 
-VERSION = '0.0.0'
-
 entry_points = {
     'console_scripts': [
     ],
 }
 
 TESTS_REQUIRE = [
-    'nose',
-    'nose-timer',
-    'nose-pudb',
-    'nose-progressive',
-    'nose2[coverage_plugin]',
-    'pyhamcrest',
-    'zope.testing',
-    'nti.nose_traceback_info',
-    'nti.testing'
+    'nti.testing',
+    'zope.dottedname',
+    'zope.testrunner',
 ]
+
+
+def _read(fname):
+    with codecs.open(fname, encoding='utf-8') as f:
+        return f.read()
+
 
 setup(
     name='nti.dublincore',
-    version=VERSION,
+    version=_read('version.txt').strip(),
     author='Jason Madden',
     author_email='jason@nextthought.com',
-    description="NTI DublinCore",
-    long_description=codecs.open('README.rst', encoding='utf-8').read(),
-    license='Proprietary',
-    keywords='Dublincore',
+    description="NTI Dublincore",
+    long_description=(_read('README.rst') + '\n\n' + _read("CHANGES.rst")),
+    license='Apache',
+    keywords='dublincore',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
     ],
+    url="https://github.com/NextThought/nti.dublincore",
+    zip_safe=True,
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    include_package_data=True,
     namespace_packages=['nti'],
     tests_require=TESTS_REQUIRE,
     install_requires=[
@@ -63,5 +61,5 @@ setup(
     extras_require={
         'test': TESTS_REQUIRE,
     },
-    entry_points=entry_points
+    entry_points=entry_points,
 )
