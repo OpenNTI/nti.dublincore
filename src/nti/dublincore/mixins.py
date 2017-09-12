@@ -9,5 +9,10 @@ __docformat__ = "restructuredtext en"
 
 logger = __import__('logging').getLogger(__name__)
 
-import zope.deprecation
-zope.deprecation.moved('nti.base.mixins')
+import zope.deferredimport
+zope.deferredimport.initialize()
+zope.deferredimport.deprecated(
+    "Import from nti.base.mixins instead",
+    CreatedTimeMixin='nti.base.mixins:CreatedTimeMixin',
+    ModifiedTimeMixin='nti.base.mixins:ModifiedTimeMixin',
+    CreatedAndModifiedTimeMixin='nti.base.mixins:CreatedAndModifiedTimeMixin')
