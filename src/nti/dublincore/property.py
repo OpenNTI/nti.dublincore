@@ -8,13 +8,10 @@ from __future__ import division
 from __future__ import print_function
 from __future__ import absolute_import
 
+from six.moves import intern
+
 from datetime import datetime as _datetime
 from calendar import timegm as _calendar_timegm
-
-try:
-    _intern = intern
-except (NameError, ImportError):
-    from sys import intern as _intern
 
 logger = __import__('logging').getLogger(__name__)
 
@@ -29,7 +26,7 @@ class TimeProperty(object):
                  write_name=None,
                  cached=False):
         self._writable = writable
-        self._name = _intern(str(name))
+        self._name = intern(str(name))
         self._write_name = write_name
         if cached:
             self._cached = str('_v_time_property_' + name)

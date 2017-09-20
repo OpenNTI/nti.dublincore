@@ -50,6 +50,7 @@ setup(
         'nti.schema',
         'nti.zodb',
         'persistent',
+        'six',
         'zope.component',
         'zope.deferredimport',
         'zope.deprecation',
