@@ -6,13 +6,14 @@ Base-class and mixin implementations.
 .. $Id$
 """
 
-from __future__ import print_function, absolute_import, division
-__docformat__ = "restructuredtext en"
-
-logger = __import__('logging').getLogger(__name__)
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
 import numbers
 import collections
+
+import zope.deferredimport
 
 from zope import interface
 
@@ -29,7 +30,9 @@ from nti.zodb import minmax
 
 from nti.zodb.persistentproperty import PersistentPropertyHolder
 
-import zope.deferredimport
+logger = __import__('logging').getLogger(__name__)
+
+
 zope.deferredimport.initialize()
 zope.deferredimport.deprecated(
     "Import from nti.base.mixins instead",

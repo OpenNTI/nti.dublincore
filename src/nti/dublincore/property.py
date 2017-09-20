@@ -4,13 +4,19 @@
 .. $Id$
 """
 
-from __future__ import print_function, absolute_import, division
-__docformat__ = "restructuredtext en"
-
-logger = __import__('logging').getLogger(__name__)
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
 from datetime import datetime as _datetime
 from calendar import timegm as _calendar_timegm
+
+try:
+    _intern = intern
+except (NameError, ImportError):
+    from sys import intern as _intern
+
+logger = __import__('logging').getLogger(__name__)
 
 
 class TimeProperty(object):
@@ -22,8 +28,8 @@ class TimeProperty(object):
                  writable=True,
                  write_name=None,
                  cached=False):
-        self._name = intern(str(name))
         self._writable = writable
+        self._name = _intern(str(name))
         self._write_name = write_name
         if cached:
             self._cached = str('_v_time_property_' + name)

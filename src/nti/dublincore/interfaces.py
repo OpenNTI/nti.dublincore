@@ -6,10 +6,11 @@ Interfaces and support for metadata properties.
 .. $Id$
 """
 
-from __future__ import print_function, absolute_import, division
-__docformat__ = "restructuredtext en"
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
 
-logger = __import__('logging').getLogger(__name__)
+import zope.deferredimport
 
 from zope.dublincore.interfaces import IDCDescriptiveProperties
 
@@ -28,7 +29,6 @@ class IDCOptionalDescriptiveProperties(IDCDescriptiveProperties):
                        default=u'')  # also defined by IDCDescriptiveProperties as required
 
 
-import zope.deferredimport
 zope.deferredimport.initialize()
 zope.deferredimport.deprecatedFrom(
     "Moved to nti.base.interfaces",
