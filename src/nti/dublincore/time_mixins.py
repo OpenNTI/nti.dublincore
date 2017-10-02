@@ -85,7 +85,7 @@ class ModifiedTimeMixin(_ModifiedTimeMixin):
             # A migration to find them is probably difficult
             data[__LM__] = minmax.NumericMaximum(data[__LM__])
         elif isinstance(data, (float, int)):  # Not sure why we get float here
-            data = {__LM__: minmax.NumericMaximum('data')}
+            data = {__LM__: minmax.NumericMaximum(data)}
         # We may or may not be the base of the inheritance tree; usually we are not,
         # but occasionally (mostly in tests) we are
         try:

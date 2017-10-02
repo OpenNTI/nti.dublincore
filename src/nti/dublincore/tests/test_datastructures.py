@@ -22,10 +22,25 @@ import unittest
 import persistent
 
 from nti.dublincore.datastructures import PersistentExternalizableWeakList
+from nti.dublincore.datastructures import PersistentCreatedModDateTrackingObject
 
 from nti.dublincore.time_mixins import ModifiedTimeMixin as ModDateTrackingObject
 
 from nti.dublincore.tests import SharedConfiguringTestLayer
+
+
+class TestPersistentCreatedModDateTrackingObject(unittest.TestCase):
+
+    layer = SharedConfiguringTestLayer
+    
+    def test_model(self):
+        class C(PersistentCreatedModDateTrackingObject):
+            
+            def __setattr__(self, name, value):
+                if name == 'creator':
+                    raise AttributeError()
+                PersistentCreatedModDateTrackingObject.__setattr__(self, name, value)
+        C()
 
 
 class TestPersistentExternalizableWeakList(unittest.TestCase):
@@ -74,6 +89,9 @@ class TestPersistentExternalizableWeakList(unittest.TestCase):
         l.extend([c1, c2, c3])
         assert_that(l, is_([c1, c2, c3]))
         assert_that(l, is_(l))
+        
+        l.remove(c1)
+        assert_that(l, is_([c2, c3]))
 
     def test_mutate(self):
 
