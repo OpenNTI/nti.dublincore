@@ -13,13 +13,13 @@ from __future__ import absolute_import
 import numbers
 import collections
 
+from persistent import Persistent
+
 import zope.deferredimport
 
 from zope import interface
 
 from zope.dublincore.interfaces import IDCTimes
-
-from persistent import Persistent
 
 from nti.base.mixins import ModifiedTimeMixin as _ModifiedTimeMixin
 from nti.base.mixins import CreatedAndModifiedTimeMixin as _CreatedAndModifiedTimeMixin
